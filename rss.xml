@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>xiaohuihui 个人博客</title>
+    <link>https://xiaohuihui1024.github.io/</link>
+    <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
+    
+    <description>记录学习历程，分享技术心得。</description>
+    <pubDate>Sun, 10 Nov 2019 13:46:14 GMT</pubDate>
+    <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>深度学习与TensorFlow 2入门实战（一）基础部分</title>
+      <link>https://xiaohuihui1024.github.io/2019/10/21/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8ETensorFlow%202%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/10/21/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8ETensorFlow%202%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86/</guid>
+      <pubDate>Mon, 21 Oct 2019 08:27:44 GMT</pubDate>
+      <description>
+      
+        看TensorFlow 2.0入门视频过程中记录的笔记和部分代码，此篇为TensorFlow2.x 的一些介绍和操作。由于前期经验不足，一些废话可能都记录下来了。后续笔记中尽量避免此问题。另外，关于API的部分，官方文档的说明可能会更好~
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/10/21/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E4%B8%8ETensorFlow%202%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%EF%BC%88%E4%B8%80%EF%BC%89%E5%9F%BA%E7%A1%80%E9%83%A8%E5%88%86/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>MongoDB学习笔记</title>
+      <link>https://xiaohuihui1024.github.io/2019/06/12/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/06/12/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
+      <pubDate>Wed, 12 Jun 2019 13:05:55 GMT</pubDate>
+      <description>
+      
+        很精简的MongoDB使用方法
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/06/12/MongoDB%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>正则表达式</title>
+      <link>https://xiaohuihui1024.github.io/2019/05/17/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/05/17/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <pubDate>Fri, 17 May 2019 06:47:04 GMT</pubDate>
+      <description>
+      
+        本篇文章介绍了正则表达式的基本知识
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/05/17/02-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Python学习笔记3-补充</title>
+      <link>https://xiaohuihui1024.github.io/2019/05/09/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E8%A1%A5%E5%85%85/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/05/09/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E8%A1%A5%E5%85%85/</guid>
+      <pubDate>Thu, 09 May 2019 11:39:03 GMT</pubDate>
+      <description>
+      
+        本篇文章介绍 Python 中 异常、模块、包、序列化、迭代器、生成器，线程、进程 相关内容
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/05/09/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B03-%E8%A1%A5%E5%85%85/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Python学习笔记2-Python面向对象</title>
+      <link>https://xiaohuihui1024.github.io/2019/05/08/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/05/08/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+      <pubDate>Wed, 08 May 2019 14:49:36 GMT</pubDate>
+      <description>
+      
+        主要介绍Python面向对象的知识
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/05/08/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02-Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Python学习笔记1-Python基础</title>
+      <link>https://xiaohuihui1024.github.io/2019/04/28/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-Python%E5%9F%BA%E7%A1%80/</link>
+      <guid>https://xiaohuihui1024.github.io/2019/04/28/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-Python%E5%9F%BA%E7%A1%80/</guid>
+      <pubDate>Sun, 28 Apr 2019 03:08:33 GMT</pubDate>
+      <description>
+      
+        Python面向过程，涵盖了常见的基础知识
+      
+      </description>
+      
+      
+      <comments>https://xiaohuihui1024.github.io/2019/04/28/Python%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01-Python%E5%9F%BA%E7%A1%80/#disqus_thread</comments>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <link>https://xiaohuihui1024.github.io/2013/07/13/hello-world/</link>
+      <guid>https://xiaohuihui1024.github.io/2013/07/13/hello-world/</guid>
+      <pubDate>Sat, 13 Jul 2013 12:46:25 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;Welcome to &lt;span class=&quot;exturl&quot; data-url=&quot;aHR0cHM6Ly9oZXhvLmlvLw==&quot; title=&quot;https://hexo.io/&quot;&gt;Hexo&lt;i class=&quot;fa fa-external-link&quot;&gt;&lt;/i&gt;&lt;/spa
+        
+      
+      </description>
+      
+      
+      
+    </item>
+    
+  </channel>
+</rss>

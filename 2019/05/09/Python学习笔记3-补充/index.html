@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xiaohuihui1024.github.io/"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.png?v=7.4.0" color="#222">
+  <link rel="alternate" href="/rss.xml" title="xiaohuihui 个人博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":18,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇文章介绍 Python 中 异常、模块、包、序列化、迭代器、生成器，线程、进程 相关内容">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python学习笔记3-补充">
+<meta property="og:url" content="https://xiaohuihui1024.github.io/2019/05/09/Python学习笔记3-补充/index.html">
+<meta property="og:site_name" content="xiaohuihui 个人博客">
+<meta property="og:description" content="本篇文章介绍 Python 中 异常、模块、包、序列化、迭代器、生成器，线程、进程 相关内容">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/4.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/5.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/6.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/7.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/8.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/9.png">
+<meta property="og:image" content="https://xiaohuihui1024.github.io/images/10.png">
+<meta property="og:updated_time" content="2019-11-10T13:41:58.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python学习笔记3-补充">
+<meta name="twitter:description" content="本篇文章介绍 Python 中 异常、模块、包、序列化、迭代器、生成器，线程、进程 相关内容">
+<meta name="twitter:image" content="https://xiaohuihui1024.github.io/images/4.png">
+  <link rel="canonical" href="https://xiaohuihui1024.github.io/2019/05/09/Python学习笔记3-补充/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>Python学习笔记3-补充 | xiaohuihui 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaohuihui 个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">低调做人，高调做事</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3hpYW9odWlodWkxMDI0" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://xiaohuihui1024.github.io/2019/05/09/Python学习笔记3-补充/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaohuihui">
+      <meta itemprop="description" content="记录学习历程，分享技术心得。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaohuihui 个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">Python学习笔记3-补充
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-09 19:39:03" itemprop="dateCreated datePublished" datetime="2019-05-09T19:39:03+08:00">2019-05-09</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-11-10 21:41:58" itemprop="dateModified" datetime="2019-11-10T21:41:58+08:00">2019-11-10</time>
+              </span>
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Python学习笔记/" itemprop="url" rel="index"><span itemprop="name">Python学习笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>15k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>27 分钟</span>
+            </span>
+          
+            <div class="post-description">本篇文章介绍 Python 中 异常、模块、包、序列化、迭代器、生成器，线程、进程 相关内容</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Python补充知识"><a href="#Python补充知识" class="headerlink" title="Python补充知识"></a>Python补充知识</h1><h2 id="一、异常"><a href="#一、异常" class="headerlink" title="一、异常"></a>一、异常</h2><h3 id="异常简介"><a href="#异常简介" class="headerlink" title="异常简介"></a>异常简介</h3><p>当使用Python解释器去执行代码的时候，遇到了错误，在控制台输出错误信息，这个错误信息就是异常</p>
+<ul>
+<li>代码遇到异常会终止执行  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name = <span class="string">'zhangsan'</span></span><br><span class="line">name + <span class="number">10</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="/images\4.png" alt="1557402111833"></p>
+<ul>
+<li>多数异常类 都 继承自 Exception 类</li>
+<li></li>
+</ul>
+<h3 id="异常捕获"><a href="#异常捕获" class="headerlink" title="异常捕获"></a>异常捕获</h3><p>异常捕获通过try实现：</p>
+<p>对于下面这段代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">num1 = input(<span class="string">"请输入第一个数字："</span>)</span><br><span class="line">num2 = input(<span class="string">"请输入第二个数字："</span>)</span><br><span class="line"></span><br><span class="line">result = int(num1) + int(num2)</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<p>如果不去捕获异常，输入字母时会出现如下结果：</p>
+<p><img src="/images\5.png" alt="1557402366247"></p>
+<p>ValueError继承自 Exception</p>
+<p>添加异常捕获机制：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="comment"># 把可能出现异常的代码放到try语句里</span></span><br><span class="line">    num1 = input(<span class="string">"请输入第一个数字："</span>)</span><br><span class="line">    num2 = input(<span class="string">"请输入第二个数字："</span>)</span><br><span class="line"></span><br><span class="line">    result = int(num1) + int(num2)</span><br><span class="line">    print(result)</span><br><span class="line"><span class="keyword">except</span> Exception <span class="keyword">as</span> e: <span class="comment"># e表示异常对象</span></span><br><span class="line">    <span class="comment"># 捕获到的异常会在except里边进行处理</span></span><br><span class="line">    print(e)</span><br></pre></td></tr></table></figure>
+<p>输入不合法数据时出现如下结果：</p>
+<p><img src="/images\6.png" alt="1557406548527"></p>
+<p>当然可以捕获多种类型异常：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    name = <span class="string">'zs'</span></span><br><span class="line">    <span class="keyword">del</span> name</span><br><span class="line">    <span class="comment"># 在try里边如果执行代码遇到了异常，不会再try里边的后续代码，会执行except代码</span></span><br><span class="line">    print(name)</span><br><span class="line">    result = <span class="number">1</span> / <span class="number">0</span></span><br><span class="line"><span class="comment"># 可以同时捕获多种类型异常</span></span><br><span class="line"><span class="keyword">except</span> (NameError, ZeroDivisionError) <span class="keyword">as</span> e:</span><br><span class="line">    print(e)</span><br></pre></td></tr></table></figure>
+<p>else和finally的使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    result = <span class="number">1</span> / <span class="number">0</span></span><br><span class="line"><span class="comment"># 可以同时捕获多种类型异常</span></span><br><span class="line"><span class="keyword">except</span> (NameError, ZeroDivisionError) <span class="keyword">as</span> e:</span><br><span class="line">    print(e)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    print(<span class="string">"没有异常 --&gt; 会执行else"</span>)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    print(<span class="string">"无论有没有异常 都会 执行finally语句"</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>总结：</p>
+<p>try语句块： 放可能出现异常的代码，一旦遇到异常不再执行后续语句，然后去对应except</p>
+<p>except语句块：捕获到的异常处理（可以捕获多种类型异常），一般情况指定Exception即可</p>
+<p>else语句块：没有异常时候，try执行完毕后执行此语句块</p>
+<p>finally语句块：不论有无异常，最后都会执行此语句块</p>
+</blockquote>
+<h3 id="自定义异常"><a href="#自定义异常" class="headerlink" title="自定义异常"></a>自定义异常</h3><ul>
+<li>自定义异常类继承自Exception</li>
+<li>示例代码如下：</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 自定义异常类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomException</span><span class="params">(Exception)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, content)</span>:</span></span><br><span class="line">        self.content = content</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 表示抛出异常时 异常描述信息</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__str__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"我是自定义异常，因为数据不是a，异常数据为%s"</span> % self.content</span><br><span class="line"></span><br><span class="line">content = input(<span class="string">"请输入数据"</span>)</span><br><span class="line"><span class="keyword">if</span> content != <span class="string">"a"</span>:</span><br><span class="line">    <span class="keyword">raise</span> CustomException(content)</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="/images\7.png" alt="1557660228911"></p>
+<h3 id="手动抛出异常"><a href="#手动抛出异常" class="headerlink" title="手动抛出异常"></a>手动抛出异常</h3><p>在需要的地方用 raise 关键词 可以手动抛出异常，1.3 示例展示了 抛出自定义异常，当然也可以抛出系统异常。</p>
+<p>不传入参数时候：<code>raise NameError()</code></p>
+<p><img src="/images\8.png" alt="1557660902673"></p>
+<p>如果传入了参数： <code>raise NameError(“异常信息”)</code>：</p>
+<p><img src="/images\9.png" alt="1557660961891"></p>
+<p>如果系统自己抛出异常，异常信息由系统指定：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a = <span class="number">1</span></span><br><span class="line"><span class="keyword">del</span> a</span><br><span class="line">print(a)</span><br></pre></td></tr></table></figure>
+<p><img src="/images\10.png" alt="1557661102439"></p>
+<blockquote>
+<p>注意：raise 只能抛出异常类型</p>
+</blockquote>
+<h2 id="二、模块"><a href="#二、模块" class="headerlink" title="二、模块"></a>二、模块</h2><h3 id="模块的介绍"><a href="#模块的介绍" class="headerlink" title="模块的介绍"></a>模块的介绍</h3><ul>
+<li>通俗理解模块就是一个.py文件，模块是管理功能代码的</li>
+<li>模块里 可以定义类、定义函数、定义全局变量，也可以执行对应的功能代码操作</li>
+</ul>
+<h3 id="内置模块"><a href="#内置模块" class="headerlink" title="内置模块"></a>内置模块</h3><ul>
+<li>Python自己内部的模块，比如time, random</li>
+<li>用import导入后即可使用</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line">print(<span class="string">"haha"</span>)</span><br><span class="line"><span class="comment"># 产生1~5之间的随机整数</span></span><br><span class="line">result = random.randint(<span class="number">1</span>, <span class="number">5</span>)</span><br><span class="line">print(result)</span><br><span class="line"><span class="comment"># 休眠1s</span></span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="自定义模块"><a href="#自定义模块" class="headerlink" title="自定义模块"></a>自定义模块</h3><ul>
+<li>理解：和变量名的定义 很类似，都是由 字母、数字、下划线组成，但不能以数字开头，否则无法导入。</li>
+<li>命名规则和变量名的一样，统一使用下划线命名法</li>
+<li>最好不能跟系统模块名字重复。否则导入该系统模块时就默认导入了 自定义模块</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># first_module.py 文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义全局变量</span></span><br><span class="line">g_num = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"There is a function"</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, age)</span>:</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.age = age</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">show_msg</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(self.name, self.age)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> first_module</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用模块中的代码</span></span><br><span class="line">print(first_module.g_num) <span class="comment"># 10</span></span><br><span class="line">first_module.show() <span class="comment"># There is a function</span></span><br><span class="line">stu = first_module.Student(<span class="string">"李四"</span>, <span class="number">20</span>)</span><br><span class="line">stu.show_msg() <span class="comment"># 李四 20</span></span><br></pre></td></tr></table></figure>
+<h3 id="主模块"><a href="#主模块" class="headerlink" title="主模块"></a>主模块</h3><ul>
+<li><p>含义：执行的这个模块就是主模块</p>
+</li>
+<li><p>查看模块名可以用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(__name)</span><br><span class="line"><span class="comment"># __main__ 表示主模块</span></span><br><span class="line"><span class="comment"># 否则输出当前模块名</span></span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ul>
+<p>被导入模块有输出的情况下，导入时会输出</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># second_module.py 文件</span></span><br><span class="line"></span><br><span class="line">g_score = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_info</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"show_info"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_num</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2</span><br><span class="line"></span><br><span class="line">print(__name__)</span><br><span class="line"><span class="comment"># 测试 sum_num有没有问题</span></span><br><span class="line">print(<span class="string">"second:"</span>, sum_num(<span class="number">1</span>, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> second_module</span><br><span class="line">print(__name__)</span><br><span class="line">print(<span class="string">"当前模块:"</span>, second_module.sum_num(<span class="number">3</span>, <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">second_module</span><br><span class="line">second: 4</span><br><span class="line">__main__</span><br><span class="line">当前模块: 5</span><br></pre></td></tr></table></figure>
+<p><strong>为了避免在 非 主模块测试的代码 影响 主模块，可以加入if判断</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改后的second_module.py 文件</span></span><br><span class="line">g_score = <span class="number">100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_info</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"show_info"</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sum_num</span><span class="params">(num1, num2)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> num1 + num2</span><br><span class="line"></span><br><span class="line">print(__name__)</span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 测试 sum_num有没有问题</span></span><br><span class="line">    print(<span class="string">"second:"</span>, sum_num(<span class="number">1</span>, <span class="number">3</span>))</span><br></pre></td></tr></table></figure>
+<p>运行主模块后：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">second_module</span><br><span class="line">__main__</span><br><span class="line">当前模块: <span class="number">5</span></span><br></pre></td></tr></table></figure>
+<p>可以发现”second: 4”不在执行</p>
+<h3 id="模块的导入方式"><a href="#模块的导入方式" class="headerlink" title="模块的导入方式"></a>模块的导入方式</h3><p>见3.2</p>
+<h3 id="模块导入的注意点"><a href="#模块导入的注意点" class="headerlink" title="模块导入的注意点"></a>模块导入的注意点</h3><ol>
+<li>自定义模块名不要跟系统的模块名重名</li>
+<li>导入的功能代码不要在当前模块定义，否则使用不了导入模块的功能代码</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">form first_module <span class="keyword">import</span> show</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"aaa"</span>)</span><br><span class="line"></span><br><span class="line">show() <span class="comment"># aaa</span></span><br></pre></td></tr></table></figure>
+<p>推荐如下导入模块方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> first_module</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"aaa"</span>)</span><br><span class="line"></span><br><span class="line">show() <span class="comment"># aaa</span></span><br><span class="line">first_module.show() <span class="comment"># There is a function</span></span><br></pre></td></tr></table></figure>
+<h3 id="模块搜索的顺序"><a href="#模块搜索的顺序" class="headerlink" title="模块搜索的顺序"></a>模块搜索的顺序</h3><ul>
+<li><code>sys.path</code> </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;C:\\Users\\73654\\PycharmProjects\\day01&apos;, &apos;C:\\Users\\73654\\PycharmProjects\\day01&apos;, &apos;C:\\Program Files\\JetBrains\\PyCharm 2019.1.1\\helpers\\pycharm_display&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\python37.zip&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\DLLs&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\lib&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37&apos;, &apos;C:\\Users\\73654\\PycharmProjects\\day01\\venv&apos;, &apos;C:\\Users\\73654\\PycharmProjects\\day01\\venv\\lib\\site-packages&apos;, &apos;C:\\Users\\73654\\AppData\\Roaming\\Python\\Python37\\site-packages&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\win32&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\win32\\lib&apos;, &apos;C:\\Users\\73654\\AppData\\Local\\Programs\\Python\\Python37\\lib\\site-packages\\Pythonwin&apos;, &apos;C:\\Program Files\\JetBrains\\PyCharm 2019.1.1\\helpers\\pycharm_matplotlib_backend&apos;]</span><br></pre></td></tr></table></figure>
+<p>以上是在Pycharm中输出结果</p>
+<h2 id="三、包"><a href="#三、包" class="headerlink" title="三、包"></a>三、包</h2><h3 id="包的介绍"><a href="#包的介绍" class="headerlink" title="包的介绍"></a>包的介绍</h3><ul>
+<li>通俗理解：包就是一个文件夹，只不过文件夹中有一个__<em>init</em>__.py文件</li>
+<li>包是管理模块的，模块是管理功能代码的</li>
+</ul>
+<h3 id="包的导入"><a href="#包的导入" class="headerlink" title="包的导入"></a>包的导入</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>导入模块方式</th>
+<th>导入包方式</th>
+<th>类型</th>
+<th>限定</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>import 模块名 [as 别名]</td>
+<td><strong>import 包名.模块名 [as 别名]</strong></td>
+<td>模块</td>
+<td></td>
+</tr>
+<tr>
+<td>from 模块名 import 功能代码 [as 别名]</td>
+<td>form 包名.模块名 import 功能代码 [as 别名]</td>
+<td>功能代码</td>
+<td>需要保证当前模块没有导入模块的功能代码</td>
+</tr>
+<tr>
+<td>from 模块名 import *</td>
+<td></td>
+<td>功能代码</td>
+<td>可用__all__限定导入的功能代码</td>
+</tr>
+<tr>
+<td></td>
+<td><strong>from 包名 import 模块名 [as 别名]</strong></td>
+<td>模块</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>from 包名 import *</td>
+<td>模块</td>
+<td>必须在__init__.py用__all__限定可导入的模块</td>
+</tr>
+<tr>
+<td></td>
+<td>import 包名</td>
+<td></td>
+<td>直接导入包，不会导入对应的模块，需要在init文件中自己导入</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="四、pip的使用"><a href="#四、pip的使用" class="headerlink" title="四、pip的使用"></a>四、pip的使用</h2><p>从网上下载并安装 第三方 的 包</p>
+<p>pip 默认针对Python2</p>
+<p>pip3 是针对Python3</p>
+<p>常用命令：</p>
+<ul>
+<li><code>pip3 list</code> 查看当前安装了哪些包</li>
+<li><code>pip3 uninstall xx</code> 删除xx包</li>
+<li><code>pip3 install xx</code> 安装xx包</li>
+</ul>
+<p>辅助参数：</p>
+<p>-i 指定源，国内的pip源如下：</p>
+<p>阿里云 <span class="exturl" data-url="aHR0cDovL21pcnJvcnMuYWxpeXVuLmNvbS9weXBpL3NpbXBsZS8=" title="http://mirrors.aliyun.com/pypi/simple/">http://mirrors.aliyun.com/pypi/simple/<i class="fa fa-external-link"></i></span></p>
+<p>中国科技大学 <span class="exturl" data-url="aHR0cHM6Ly9weXBpLm1pcnJvcnMudXN0Yy5lZHUuY24vc2ltcGxlLw==" title="https://pypi.mirrors.ustc.edu.cn/simple/">https://pypi.mirrors.ustc.edu.cn/simple/ <i class="fa fa-external-link"></i></span></p>
+<p>豆瓣(douban) <span class="exturl" data-url="aHR0cDovL3B5cGkuZG91YmFuLmNvbS9zaW1wbGUv" title="http://pypi.douban.com/simple/">http://pypi.douban.com/simple/<i class="fa fa-external-link"></i></span></p>
+<p>清华大学 <span class="exturl" data-url="aHR0cHM6Ly9weXBpLnR1bmEudHNpbmdodWEuZWR1LmNuL3NpbXBsZS8=" title="https://pypi.tuna.tsinghua.edu.cn/simple/">https://pypi.tuna.tsinghua.edu.cn/simple/<i class="fa fa-external-link"></i></span></p>
+<p>中国科学技术大学 <span class="exturl" data-url="aHR0cDovL3B5cGkubWlycm9ycy51c3RjLmVkdS5jbi9zaW1wbGUv" title="http://pypi.mirrors.ustc.edu.cn/simple/">http://pypi.mirrors.ustc.edu.cn/simple/<i class="fa fa-external-link"></i></span></p>
+<h2 id="五、IO包"><a href="#五、IO包" class="headerlink" title="五、IO包"></a>五、IO包</h2><h3 id="StringIO"><a href="#StringIO" class="headerlink" title="StringIO"></a>StringIO</h3><p>把数据临时写入到内容，不想存到文件的时候可用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把字符串数据写入到内存</span></span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="comment"># StringIO的操作 与 文件的写入和读取 很类似</span></span><br><span class="line">str_io = io.StringIO()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 向内存写入字符串数据</span></span><br><span class="line">str_io.write(<span class="string">"hello"</span>)</span><br><span class="line">str_io.write(<span class="string">"world"</span>)</span><br><span class="line"><span class="comment"># str_io.write("哈哈".encode("utf-8"))</span></span><br><span class="line"><span class="comment"># TypeError: string argument expected, got 'bytes'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取数据</span></span><br><span class="line">content = str_io.getvalue()</span><br><span class="line">print(content)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置文件指针的位置 到 文件开头</span></span><br><span class="line">str_io.seek(<span class="number">0</span>)</span><br><span class="line"><span class="comment"># 默认全部读取出来</span></span><br><span class="line">result = str_io.read()</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<h3 id="ByteIO"><a href="#ByteIO" class="headerlink" title="ByteIO"></a>ByteIO</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> io <span class="keyword">import</span> BytesIO</span><br><span class="line"></span><br><span class="line">byte_io = BytesIO()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 向内存写入数据</span></span><br><span class="line">byte_io.write(<span class="string">"哈哈"</span>.encode(<span class="string">"utf-8"</span>))</span><br><span class="line"><span class="comment"># 读取数据，获取写入到内存中的全部数据</span></span><br><span class="line">data = byte_io.getvalue()</span><br><span class="line">print(data)</span><br><span class="line"></span><br><span class="line">content = data.decode(<span class="string">"utf-8"</span>)</span><br><span class="line">print(content)</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b&apos;\xe5\x93\x88\xe5\x93\x88&apos;</span><br><span class="line">哈哈</span><br></pre></td></tr></table></figure>
+<h2 id="六、序列化与反序列化pickle"><a href="#六、序列化与反序列化pickle" class="headerlink" title="六、序列化与反序列化pickle"></a>六、序列化与反序列化pickle</h2><p>pickle 对于任何对象都通用，不论是json还是 普通的自定义对象</p>
+<p>pickle 序列化后得到的是二进制数据，需要注意文件的访问模式</p>
+<h3 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h3><ul>
+<li>把内存中的数据保存到本地，可以做到持久化存储</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">my_list = [&#123;<span class="string">"name"</span>: <span class="string">"李四"</span>, <span class="string">"age"</span>: <span class="number">20</span>&#125;, &#123;<span class="string">"name"</span>: <span class="string">"王五"</span>, <span class="string">"age"</span>: <span class="number">21</span>&#125;]</span><br><span class="line">file = open(<span class="string">"my_list.serialize"</span>, <span class="string">"wb"</span>)</span><br><span class="line">pickle.dump(my_list, file)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>得到的数据如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">�]q(&#125;q(XnameqX李四qXageqKu&#125;q(hX王五qhKue.</span><br></pre></td></tr></table></figure>
+<h3 id="反序列化"><a href="#反序列化" class="headerlink" title="反序列化"></a>反序列化</h3><p>把文件中的数据读取出来，得到保存的 Python对象</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"></span><br><span class="line">file = open(<span class="string">"my_list.serialize"</span>, <span class="string">"rb"</span>)</span><br><span class="line">my_list = pickle.load(file)</span><br><span class="line"></span><br><span class="line">print(my_list)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&apos;name&apos;: &apos;李四&apos;, &apos;age&apos;: 20&#125;, &#123;&apos;name&apos;: &apos;王五&apos;, &apos;age&apos;: 21&#125;]</span><br></pre></td></tr></table></figure>
+<h2 id="七、json序列化与反序列化"><a href="#七、json序列化与反序列化" class="headerlink" title="七、json序列化与反序列化"></a>七、json序列化与反序列化</h2><ul>
+<li>只能支持部分数据类型，不通用。</li>
+<li>支持 列表、字典、int类型，自定义类型不可以</li>
+<li>以字符串的形式存储，而不是二进制数据</li>
+</ul>
+<h3 id="序列化-1"><a href="#序列化-1" class="headerlink" title="序列化"></a>序列化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">my_list = [&#123;<span class="string">"name"</span>: <span class="string">"李四"</span>, <span class="string">"age"</span>: <span class="number">20</span>&#125;, &#123;<span class="string">"name"</span>: <span class="string">"王五"</span>, <span class="string">"age"</span>: <span class="number">21</span>&#125;]</span><br><span class="line">file = open(<span class="string">"my_list.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">json.dump(my_list, file)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>文件中的数据如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&quot;name&quot;: &quot;\u674e\u56db&quot;, &quot;age&quot;: 20&#125;, &#123;&quot;name&quot;: &quot;\u738b\u4e94&quot;, &quot;age&quot;: 21&#125;]</span><br></pre></td></tr></table></figure>
+<h3 id="反序列化-1"><a href="#反序列化-1" class="headerlink" title="反序列化"></a>反序列化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line">file = open(<span class="string">"my_list.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">my_list = json.load(file)</span><br><span class="line">print(my_list)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;&apos;name&apos;: &apos;李四&apos;, &apos;age&apos;: 20&#125;, &#123;&apos;name&apos;: &apos;王五&apos;, &apos;age&apos;: 21&#125;]</span><br></pre></td></tr></table></figure>
+<h3 id="序列化对象的本质"><a href="#序列化对象的本质" class="headerlink" title="序列化对象的本质"></a>序列化对象的本质</h3><ul>
+<li>序列化对象的本质是 把 对象的属性进行保存</li>
+<li>用json没办法把对象序列化，只能序列化对象的__dict__</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.name = <span class="string">"李四"</span></span><br><span class="line">        self.age = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">file = open(<span class="string">"stu.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>)</span><br><span class="line">stu = Student()</span><br><span class="line">print(stu.__dict__)</span><br><span class="line">json.dump(stu.__dict__, file)</span><br><span class="line">file.close()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123;<span class="string">"name"</span>: <span class="string">"\u674e\u56db"</span>, <span class="string">"age"</span>: <span class="number">20</span>&#125;, &#123;<span class="string">"name"</span>: <span class="string">"\u738b\u4e94"</span>, <span class="string">"age"</span>: <span class="number">21</span>&#125;]</span><br></pre></td></tr></table></figure>
+<h2 id="八、可迭代对象"><a href="#八、可迭代对象" class="headerlink" title="八、可迭代对象"></a>八、可迭代对象</h2><h3 id="可迭代对象简介"><a href="#可迭代对象简介" class="headerlink" title="可迭代对象简介"></a>可迭代对象简介</h3><ul>
+<li>可迭代对象 是 使用for循环遍历取值的对象</li>
+<li>for循环可以直接遍历取值的对象：列表、元组、字典、字符串、集合、range</li>
+</ul>
+<h3 id="判断是否是可迭代对象"><a href="#判断是否是可迭代对象" class="headerlink" title="判断是否是可迭代对象"></a>判断是否是可迭代对象</h3><ul>
+<li><p>可以导入 <code>collections</code>包中 <code>Iterable</code>模块</p>
+<p>利用 <code>isinstance()</code> 方法判断是否是<strong>指定类型</strong><code>Iterable</code></p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> collections.abc <span class="keyword">import</span> Iterable</span><br><span class="line">print(isinstance([<span class="number">1</span>, <span class="number">2</span>], Iterable))  <span class="comment"># True</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：如果是from collections import Iterable会出现如下警告(Python 3.7.3rc1)</p>
+<p>DeprecationWarning: Using or importing the ABCs from ‘collections’ instead of from ‘collections.abc’ is deprecated, and in 3.8 it will stop working<br>  from collections import Iterable</p>
+</blockquote>
+<ul>
+<li><p>可迭代对象 都有一个 __iter__方法</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">result = dir([<span class="number">1</span>, <span class="number">2</span>])</span><br><span class="line">print(result)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;__add__&apos;, &apos;__class__&apos;, &apos;__contains__&apos;, &apos;__delattr__&apos;, &apos;__delitem__&apos;, &apos;__dir__&apos;, &apos;__doc__&apos;, &apos;__eq__&apos;, &apos;__format__&apos;, &apos;__ge__&apos;, &apos;__getattribute__&apos;, &apos;__getitem__&apos;, &apos;__gt__&apos;, &apos;__hash__&apos;, &apos;__iadd__&apos;, &apos;__imul__&apos;, &apos;__init__&apos;, &apos;__init_subclass__&apos;, &apos;__iter__&apos;, &apos;__le__&apos;, &apos;__len__&apos;, &apos;__lt__&apos;, &apos;__mul__&apos;, &apos;__ne__&apos;, &apos;__new__&apos;, &apos;__reduce__&apos;, &apos;__reduce_ex__&apos;, &apos;__repr__&apos;, &apos;__reversed__&apos;, &apos;__rmul__&apos;, &apos;__setattr__&apos;, &apos;__setitem__&apos;, &apos;__sizeof__&apos;, &apos;__str__&apos;, &apos;__subclasshook__&apos;, &apos;append&apos;, &apos;clear&apos;, &apos;copy&apos;, &apos;count&apos;, &apos;extend&apos;, &apos;index&apos;, &apos;insert&apos;, &apos;pop&apos;, &apos;remove&apos;, &apos;reverse&apos;, &apos;sort&apos;]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="九、迭代器"><a href="#九、迭代器" class="headerlink" title="九、迭代器"></a>九、迭代器</h2><h3 id="迭代器简介"><a href="#迭代器简介" class="headerlink" title="迭代器简介"></a>迭代器简介</h3><ul>
+<li>迭代器：在类中有__iter__和__next__的方法 创建的对象 就是迭代器</li>
+<li>作用：记录数据的位置，并根据这个位置获取下一个值（取值）</li>
+<li>惰性取值，不会先把所有值生成好</li>
+</ul>
+<h3 id="自定义迭代器"><a href="#自定义迭代器" class="headerlink" title="自定义迭代器"></a>自定义迭代器</h3><p>自定义迭代器 类 如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyIterator</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.my_list = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">19</span>]</span><br><span class="line">        self.current_index = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment"># 返回迭代器对象</span></span><br><span class="line">        <span class="keyword">return</span>  self</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.current_index &lt; len(self.my_list):</span><br><span class="line">            <span class="comment"># 获取迭代器中的下一个值</span></span><br><span class="line">            result = self.my_list[self.current_index]</span><br><span class="line">            self.current_index += <span class="number">1</span></span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># 跑出停止迭代异常</span></span><br><span class="line">            <span class="keyword">raise</span> StopIteration(<span class="string">"停止迭代！"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="迭代器的遍历-迭代"><a href="#迭代器的遍历-迭代" class="headerlink" title="迭代器的遍历(迭代)"></a>迭代器的遍历(迭代)</h3><ul>
+<li><p>手动next方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建迭代器</span></span><br><span class="line">my_iterator = MyIterator()</span><br><span class="line"><span class="comment"># 使用next函数获取迭代器中的下一个值</span></span><br><span class="line">result = next(my_iterator)</span><br><span class="line">print(result) <span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line">result = next(my_iterator)</span><br><span class="line">print(result) <span class="comment"># 5</span></span><br><span class="line"></span><br><span class="line">result = next(my_iterator)</span><br><span class="line">print(result) <span class="comment"># 19</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">继续迭代会抛出异常……</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for循环 内部 会自动处理 停止迭代异常</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建迭代器</span></span><br><span class="line">my_iterator = MyIterator()</span><br><span class="line"><span class="comment"># 使用next函数获取迭代器中的下一个值</span></span><br><span class="line">result = next(my_iterator)</span><br><span class="line">print(result) <span class="comment"># 4</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> val <span class="keyword">in</span> my_iterator:</span><br><span class="line">    print(val) </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">5</span></span><br><span class="line"><span class="string">19</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="十、生成器"><a href="#十、生成器" class="headerlink" title="十、生成器"></a>十、生成器</h2><h3 id="生成器简介"><a href="#生成器简介" class="headerlink" title="生成器简介"></a>生成器简介</h3><p>生成器是一个特殊的迭代器，根据一定的算法去生成数据。因此可用next函数和for循环取值</p>
+<p>生成器和迭代器有一个共同的特点：节省内存</p>
+<p>以往是 一次性 把所有数据都准备好，而它们则是 根据需要每次生成一个值</p>
+<blockquote>
+<p>值只能 往后取，不能往前</p>
+</blockquote>
+<h3 id="生成器创建方式"><a href="#生成器创建方式" class="headerlink" title="生成器创建方式"></a>生成器创建方式</h3><h4 id="使用生成器表达式"><a href="#使用生成器表达式" class="headerlink" title="使用生成器表达式"></a>使用生成器表达式</h4><p>跟列表生成器很类似，把[] 换成()即可</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">result = [x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">4</span>)]</span><br><span class="line">print(result) <span class="comment"># [0, 1, 2, 3]</span></span><br><span class="line">result = (x <span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">4</span>))</span><br><span class="line">print(result) <span class="comment"># &lt;generator object &lt;genexpr&gt; at 0x7f3792369318&gt;</span></span><br></pre></td></tr></table></figure>
+<h4 id="使用yield创建生成器"><a href="#使用yield创建生成器" class="headerlink" title="使用yield创建生成器"></a>使用yield创建生成器</h4><p>先看一段实例代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_num</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line"></span><br><span class="line">value = show_num()</span><br><span class="line">print(value)</span><br></pre></td></tr></table></figure>
+<p>执行return的时候函数就结束了，只能返回0</p>
+<p>把return改成yield就是生成器了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_num</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">g = show_num()</span><br><span class="line">print(g)</span><br><span class="line"><span class="keyword">for</span> val <span class="keyword">in</span> g:</span><br><span class="line">    print(val)</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">0</span><br><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+<ul>
+<li>yield特点：<ul>
+<li>代码遇到yield会暂停，然后把结果返回出去</li>
+<li>下次启动生成器在暂停的位置继续往下执行</li>
+<li>可以返回多次值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_num</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        print(<span class="string">"1111"</span>)</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        print(<span class="string">"2222"</span>)</span><br><span class="line"></span><br><span class="line">g = show_num()</span><br><span class="line">print(next(g))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1111</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show_num</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        print(<span class="string">"1111"</span>)</span><br><span class="line">        <span class="keyword">yield</span> i</span><br><span class="line">        print(<span class="string">"2222"</span>)</span><br><span class="line"></span><br><span class="line">g = show_num()</span><br><span class="line">print(next(g))</span><br><span class="line">print(next(g))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1111</span><br><span class="line">0</span><br><span class="line">2222</span><br><span class="line">1111</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+<h3 id="生成器遍历"><a href="#生成器遍历" class="headerlink" title="生成器遍历"></a>生成器遍历</h3><p>同迭代器(next和for)</p>
+<h2 id="十一、线程"><a href="#十一、线程" class="headerlink" title="十一、线程"></a>十一、线程</h2><h3 id="线程是什么"><a href="#线程是什么" class="headerlink" title="线程是什么"></a>线程是什么</h3><p>之前所学的代码无法完成多任务，没办法两个函数“同时”执行，以前的代码都只有一条线程，只能按照调用的先后顺序依次执行</p>
+<ul>
+<li>线程：执行代码的分支，默认程序只有一个线程</li>
+<li>线程执行是无序的，由CPU调度决定</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        print(i, <span class="string">"aa"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BB</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">        print(i, <span class="string">"bb"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    AA()</span><br><span class="line">    BB()</span><br></pre></td></tr></table></figure>
+<p>上述代码会先执行AA()，执行完毕后才会去执行BB()</p>
+<h3 id="多线程的代码实现"><a href="#多线程的代码实现" class="headerlink" title="多线程的代码实现"></a>多线程的代码实现</h3><ul>
+<li>引入<code>threading</code> 模块</li>
+<li><p><code>Thread()</code>函数创建子线程，参数说明：</p>
+<ul>
+<li><code>target</code> 参数接收 目标函数</li>
+<li><code>daemon</code> 为True时，守护主线程</li>
+<li><code>args</code> 以元组形式给 目标函数传参</li>
+<li><code>kwargs</code> 以字典形式给 目标函数传参</li>
+</ul>
+</li>
+<li><p><code>ThreadObject.start()</code> 启动线程，线程对应函数的代码才会执行</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AA</span><span class="params">(count)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(count):</span><br><span class="line">        print(i, <span class="string">"aa"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BB</span><span class="params">(count)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(count):</span><br><span class="line">        print(i, <span class="string">"bb"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建子线程，执行对应的代码，target表示目标函数</span></span><br><span class="line">    sub_thread1 = threading.Thread(target=AA, kwargs=&#123;<span class="string">"count"</span>: <span class="number">3</span>&#125;)</span><br><span class="line">    sub_thread1.start()</span><br><span class="line">    sub_thread2 = threading.Thread(target=BB, args=(<span class="number">3</span>,))</span><br><span class="line">    sub_thread2.start()</span><br></pre></td></tr></table></figure>
+<p>示例输出（多线程输出结果不确定）：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span> aa</span><br><span class="line"><span class="number">0</span> bb</span><br><span class="line"><span class="number">1</span> aa</span><br><span class="line"><span class="number">1</span> bb</span><br><span class="line"><span class="number">2</span> bb</span><br><span class="line"><span class="number">2</span> aa</span><br></pre></td></tr></table></figure>
+<h3 id="守护线程"><a href="#守护线程" class="headerlink" title="守护线程"></a>守护线程</h3><ul>
+<li><p>默认情况下，主线程会等待所有的子线程执行完成以后再退出</p>
+<ul>
+<li>如果是子线程中有死循环，主线程不会退出</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> threading</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AA</span><span class="params">(count)</span>:</span></span><br><span class="line">    print(<span class="string">"AA:"</span>, threading.current_thread())</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(count):</span><br><span class="line">        print(i, <span class="string">"aa"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.2</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">"main:"</span>, threading.current_thread())</span><br><span class="line">    t1 = threading.Thread(target=AA, kwargs=&#123;<span class="string">"count"</span>: <span class="number">3</span>&#125;)</span><br><span class="line">    t1.start()</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"over"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">main: &lt;_MainThread(MainThread, started 140719848908608)&gt;</span><br><span class="line">AA: &lt;Thread(Thread-1, started 140719843464960)&gt;</span><br><span class="line">0 aa</span><br><span class="line">over</span><br><span class="line">1 aa</span><br><span class="line">2 aa</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置守护线程</p>
+<ul>
+<li>主线程退出的时候，子线程直接销毁，不再执行对应的代码</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">t1 = threading.Thread(target=AA, kwargs=&#123;<span class="string">"count"</span>: <span class="number">3</span>&#125;)</span><br><span class="line">t1.setDaemon(<span class="literal">True</span>)</span><br><span class="line">t1.start()</span><br><span class="line"></span><br><span class="line">time.sleep(<span class="number">1</span>)</span><br><span class="line">print(<span class="string">"over"</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">0 aa</span><br><span class="line">1 aa</span><br><span class="line">2 aa</span><br><span class="line">over</span><br></pre></td></tr></table></figure>
+<p>除了用setDaemon(True) 的方式外，还可以</p>
+<p>在创建线程的时候，传入Daemon参数达到守护线程的目的</p>
+</li>
+</ul>
+<h3 id="互斥锁"><a href="#互斥锁" class="headerlink" title="互斥锁"></a>互斥锁</h3><p>先观察下面的代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line">g_num = <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> g_num</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        g_num += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"AA:"</span>, g_num)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BB</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">global</span> g_num</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        g_num += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"BB:"</span>, g_num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建两个线程</span></span><br><span class="line">    first_thread = threading.Thread(target=AA)</span><br><span class="line">    second_thread = threading.Thread(target=BB)</span><br><span class="line">    </span><br><span class="line">    first_thread.start()</span><br><span class="line">    second_thread.start()</span><br></pre></td></tr></table></figure>
+<p>输出结果不确定</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">BB: 1385465</span><br><span class="line">AA: 1545123</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AA: 1550914</span><br><span class="line">BB: 1565660</span><br></pre></td></tr></table></figure>
+<p>……</p>
+<p>两个线程同时对 同一个全局变量 操作 出现了资源竞争问题，可以用互斥锁解决</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> threading</span><br><span class="line">g_num = <span class="number">0</span></span><br><span class="line"><span class="comment"># 创建互斥锁</span></span><br><span class="line">lock = threading.Lock()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">AA</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 上锁</span></span><br><span class="line">    lock.acquire()</span><br><span class="line">    <span class="keyword">global</span> g_num</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        g_num += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"AA:"</span>, g_num)</span><br><span class="line">    <span class="comment"># 释放锁</span></span><br><span class="line">    lock.release()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">BB</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="comment"># 上锁</span></span><br><span class="line">    lock.acquire()</span><br><span class="line">    <span class="keyword">global</span> g_num</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000000</span>):</span><br><span class="line">        g_num += <span class="number">1</span></span><br><span class="line">    print(<span class="string">"BB:"</span>, g_num)</span><br><span class="line">    <span class="comment"># 释放锁</span></span><br><span class="line">    lock.release()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建两个线程</span></span><br><span class="line">    first_thread = threading.Thread(target=AA)</span><br><span class="line">    second_thread = threading.Thread(target=BB)</span><br><span class="line"></span><br><span class="line">    first_thread.start()</span><br><span class="line">    second_thread.start()</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AA: 1000000</span><br><span class="line">BB: 2000000</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：视频在此位置有 跳跃，一段视频消失了……</p>
+<p>GIL 全局解释器锁：CPython内置</p>
+<p>Python的多线程不是真正意义上的多线程，没办法让两个线程”同时”执行，Python解释器会让某一线程先执行（上锁），其他线程等待一小段时间（释放锁）</p>
+</blockquote>
+<h2 id="十二、进程"><a href="#十二、进程" class="headerlink" title="十二、进程"></a>十二、进程</h2><h3 id="进程是什么"><a href="#进程是什么" class="headerlink" title="进程是什么"></a>进程是什么</h3><ul>
+<li>进程：每次创建一个进程，操作系统会给这个进程分配对应的运行资源，一个进程里面默认有一个线程</li>
+<li>真正干活的是线程，进程只提供资源</li>
+<li>使用进程也可以完成多任务</li>
+</ul>
+<h3 id="进程的代码实现"><a href="#进程的代码实现" class="headerlink" title="进程的代码实现"></a>进程的代码实现</h3><p>大体上跟 线程 类似</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        print(<span class="string">"show"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">show1</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">        print(<span class="string">"show1"</span>)</span><br><span class="line">        time.sleep(<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建子进程</span></span><br><span class="line">    first = multiprocessing.Process(target=show)</span><br><span class="line">    second = multiprocessing.Process(target=show1)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 启动进程执行任务</span></span><br><span class="line">    first.start()</span><br><span class="line">    second.start()</span><br></pre></td></tr></table></figure>
+<h3 id="在主进程终止子进程"><a href="#在主进程终止子进程" class="headerlink" title="在主进程终止子进程"></a>在主进程终止子进程</h3><ul>
+<li>默认情况下，主进程会等到子进程执行完成后再退出（同线程）</li>
+</ul>
+<ol>
+<li><p>让子进程终止，销毁子进程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sub_process.terminate()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设置守护进程（同线程）</p>
+</li>
+</ol>
+<h3 id="共享全局变量问题"><a href="#共享全局变量问题" class="headerlink" title="共享全局变量问题"></a>共享全局变量问题</h3><p>进程之间是相互独立的，只是变量名相同而已，不会共享全局变量的数据</p>
+<p>子进程会对主进程的资源进行拷贝</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line">my_list = []</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_data</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        my_list.append(i)</span><br><span class="line">    </span><br><span class="line">    print(<span class="string">"add_data:"</span>, my_list)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_data</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">"read:"</span>, my_list)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 创建两个子进程</span></span><br><span class="line">    add_process = multiprocessing.Process(target=add_data)</span><br><span class="line">    read_process = multiprocessing.Process(target=read_data)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 启动进程执行任务</span></span><br><span class="line">    add_process.start()</span><br><span class="line">    <span class="comment"># 进程等待，主进程等待子进程执行完，再让后边的代码执行</span></span><br><span class="line">    add_process.join()</span><br><span class="line">    read_process.start()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_data: [0, 1, 2]</span><br><span class="line">read: []</span><br></pre></td></tr></table></figure>
+<h3 id="进程之间的通信方式"><a href="#进程之间的通信方式" class="headerlink" title="进程之间的通信方式"></a>进程之间的通信方式</h3><h4 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a>消息队列</h4><ul>
+<li>消息队列的 添加和获取数据<ul>
+<li><code>Queue()</code> 创建空队列，容量默认为任意多个，可以指定</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建消息队列</span></span><br><span class="line">queue = multiprocessing.Queue(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 往队列添加数据</span></span><br><span class="line">queue.put(<span class="number">1</span>)</span><br><span class="line">queue.put(<span class="number">2</span>)</span><br><span class="line">queue.put(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从队列中获取数据</span></span><br><span class="line">print(queue.get())</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用消息队列实现在 进程之间共享数据<ul>
+<li>创建一个队列</li>
+<li>以参数的形式传到各个进程</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> multiprocessing</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_data</span><span class="params">(queue)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        print(<span class="string">"add:"</span>, i)</span><br><span class="line">        queue.put(i)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_data</span><span class="params">(queue)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">if</span> queue.empty():</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        value = queue.get()</span><br><span class="line">        print(<span class="string">"get:"</span>, value)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    queue = multiprocessing.Queue(<span class="number">3</span>)</span><br><span class="line">    <span class="comment"># 创建两个子进程</span></span><br><span class="line">    add_process = multiprocessing.Process(target=add_data, args=(queue,))</span><br><span class="line">    read_process = multiprocessing.Process(target=read_data, args=(queue,))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 启动进程执行任务</span></span><br><span class="line">    add_process.start()</span><br><span class="line">    <span class="comment"># 进程等待，主进程等待子进程执行完，再让后边的代码执行</span></span><br><span class="line">    add_process.join()</span><br><span class="line">    read_process.start()</span><br></pre></td></tr></table></figure>
+<h4 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h4><blockquote>
+<p>多任务：使用线程和进程</p>
+<p>从资源角度来说，线程更加节省资源，进程消耗资源较多</p>
+<p>从代码稳定性来说，多进程比多线程稳定性要强，因为一个进程挂掉不会影响其他进程</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="xiaohuihui 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="xiaohuihui 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xiaohuihui</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://xiaohuihui1024.github.io/2019/05/09/Python学习笔记3-补充/" title="Python学习笔记3-补充">https://xiaohuihui1024.github.io/2019/05/09/Python学习笔记3-补充/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/python/" rel="tag"># python</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/05/08/Python学习笔记2-Python面向对象/" rel="next" title="Python学习笔记2-Python面向对象">
+                  <i class="fa fa-chevron-left"></i> Python学习笔记2-Python面向对象
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/05/17/02-正则表达式/" rel="prev" title="正则表达式">
+                  正则表达式 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python补充知识"><span class="nav-number">1.</span> <span class="nav-text">Python补充知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、异常"><span class="nav-number">1.1.</span> <span class="nav-text">一、异常</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异常简介"><span class="nav-number">1.1.1.</span> <span class="nav-text">异常简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常捕获"><span class="nav-number">1.1.2.</span> <span class="nav-text">异常捕获</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义异常"><span class="nav-number">1.1.3.</span> <span class="nav-text">自定义异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动抛出异常"><span class="nav-number">1.1.4.</span> <span class="nav-text">手动抛出异常</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、模块"><span class="nav-number">1.2.</span> <span class="nav-text">二、模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模块的介绍"><span class="nav-number">1.2.1.</span> <span class="nav-text">模块的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置模块"><span class="nav-number">1.2.2.</span> <span class="nav-text">内置模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义模块"><span class="nav-number">1.2.3.</span> <span class="nav-text">自定义模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主模块"><span class="nav-number">1.2.4.</span> <span class="nav-text">主模块</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块的导入方式"><span class="nav-number">1.2.5.</span> <span class="nav-text">模块的导入方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块导入的注意点"><span class="nav-number">1.2.6.</span> <span class="nav-text">模块导入的注意点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模块搜索的顺序"><span class="nav-number">1.2.7.</span> <span class="nav-text">模块搜索的顺序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、包"><span class="nav-number">1.3.</span> <span class="nav-text">三、包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#包的介绍"><span class="nav-number">1.3.1.</span> <span class="nav-text">包的介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包的导入"><span class="nav-number">1.3.2.</span> <span class="nav-text">包的导入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、pip的使用"><span class="nav-number">1.4.</span> <span class="nav-text">四、pip的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、IO包"><span class="nav-number">1.5.</span> <span class="nav-text">五、IO包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#StringIO"><span class="nav-number">1.5.1.</span> <span class="nav-text">StringIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ByteIO"><span class="nav-number">1.5.2.</span> <span class="nav-text">ByteIO</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、序列化与反序列化pickle"><span class="nav-number">1.6.</span> <span class="nav-text">六、序列化与反序列化pickle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化"><span class="nav-number">1.6.1.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反序列化"><span class="nav-number">1.6.2.</span> <span class="nav-text">反序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、json序列化与反序列化"><span class="nav-number">1.7.</span> <span class="nav-text">七、json序列化与反序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化-1"><span class="nav-number">1.7.1.</span> <span class="nav-text">序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反序列化-1"><span class="nav-number">1.7.2.</span> <span class="nav-text">反序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#序列化对象的本质"><span class="nav-number">1.7.3.</span> <span class="nav-text">序列化对象的本质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、可迭代对象"><span class="nav-number">1.8.</span> <span class="nav-text">八、可迭代对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可迭代对象简介"><span class="nav-number">1.8.1.</span> <span class="nav-text">可迭代对象简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断是否是可迭代对象"><span class="nav-number">1.8.2.</span> <span class="nav-text">判断是否是可迭代对象</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、迭代器"><span class="nav-number">1.9.</span> <span class="nav-text">九、迭代器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器简介"><span class="nav-number">1.9.1.</span> <span class="nav-text">迭代器简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义迭代器"><span class="nav-number">1.9.2.</span> <span class="nav-text">自定义迭代器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#迭代器的遍历-迭代"><span class="nav-number">1.9.3.</span> <span class="nav-text">迭代器的遍历(迭代)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、生成器"><span class="nav-number">1.10.</span> <span class="nav-text">十、生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器简介"><span class="nav-number">1.10.1.</span> <span class="nav-text">生成器简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器创建方式"><span class="nav-number">1.10.2.</span> <span class="nav-text">生成器创建方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用生成器表达式"><span class="nav-number">1.10.2.1.</span> <span class="nav-text">使用生成器表达式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用yield创建生成器"><span class="nav-number">1.10.2.2.</span> <span class="nav-text">使用yield创建生成器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成器遍历"><span class="nav-number">1.10.3.</span> <span class="nav-text">生成器遍历</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、线程"><span class="nav-number">1.11.</span> <span class="nav-text">十一、线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程是什么"><span class="nav-number">1.11.1.</span> <span class="nav-text">线程是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多线程的代码实现"><span class="nav-number">1.11.2.</span> <span class="nav-text">多线程的代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#守护线程"><span class="nav-number">1.11.3.</span> <span class="nav-text">守护线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#互斥锁"><span class="nav-number">1.11.4.</span> <span class="nav-text">互斥锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、进程"><span class="nav-number">1.12.</span> <span class="nav-text">十二、进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程是什么"><span class="nav-number">1.12.1.</span> <span class="nav-text">进程是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程的代码实现"><span class="nav-number">1.12.2.</span> <span class="nav-text">进程的代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在主进程终止子进程"><span class="nav-number">1.12.3.</span> <span class="nav-text">在主进程终止子进程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#共享全局变量问题"><span class="nav-number">1.12.4.</span> <span class="nav-text">共享全局变量问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程之间的通信方式"><span class="nav-number">1.12.5.</span> <span class="nav-text">进程之间的通信方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#消息队列"><span class="nav-number">1.12.5.1.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#管道"><span class="nav-number">1.12.5.2.</span> <span class="nav-text">管道</span></a></li></ol></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="xiaohuihui">
+  <p class="site-author-name" itemprop="name">xiaohuihui</p>
+  <div class="site-description" itemprop="description">记录学习历程，分享技术心得。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/rss.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3hpYW9odWlodWkxMDI0" title="GitHub &rarr; https://github.com/xiaohuihui1024"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOnpoYW5neXVodWljaG5AMTYzLmNvbQ==" title="E-Mail &rarr; mailto:zhangyuhuichn@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      常用链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9nb29nbGUuY29tLw==" title="https://google.com/">Google</span>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">Baidu</span>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohuihui</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">103k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:07</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

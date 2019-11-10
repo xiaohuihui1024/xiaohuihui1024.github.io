@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+
+<script>
+    (function () {
+        if ('') {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://xiaohuihui1024.github.io/"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.png?v=7.4.0" color="#222">
+  <link rel="alternate" href="/rss.xml" title="xiaohuihui 个人博客" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2">
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.0',
+    exturl: true,
+    sidebar: {"position":"left","display":"post","offset":18,"onmobile":false},
+    copycode: {"enable":true,"show_result":true,"style":"mac"},
+    back2top: {"enable":true,"sidebar":true,"scrollpercent":true},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":true,"trigger":"auto","top_n_per_article":5,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="本篇文章介绍了正则表达式的基本知识">
+<meta name="keywords" content="正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式">
+<meta property="og:url" content="https://xiaohuihui1024.github.io/2019/05/17/02-正则表达式/index.html">
+<meta property="og:site_name" content="xiaohuihui 个人博客">
+<meta property="og:description" content="本篇文章介绍了正则表达式的基本知识">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-06-06T07:05:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式">
+<meta name="twitter:description" content="本篇文章介绍了正则表达式的基本知识">
+  <link rel="canonical" href="https://xiaohuihui1024.github.io/2019/05/17/02-正则表达式/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>正则表达式 | xiaohuihui 个人博客</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">xiaohuihui 个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <p class="site-subtitle">低调做人，高调做事</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-sitemap">
+      
+    
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-fw fa-sitemap"></i>站点地图</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="fa fa-search fa-fw"></i>搜索</a>
+      </li>
+    
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+
+  <span class="exturl github-corner" data-url="aHR0cHM6Ly9naXRodWIuY29tL3hpYW9odWlodWkxMDI0" title="Follow me on GitHub" aria-label="Follow me on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></span>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+            
+
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="https://xiaohuihui1024.github.io/2019/05/17/02-正则表达式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xiaohuihui">
+      <meta itemprop="description" content="记录学习历程，分享技术心得。">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="xiaohuihui 个人博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">正则表达式
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-05-17 14:47:04" itemprop="dateCreated datePublished" datetime="2019-05-17T14:47:04+08:00">2019-05-17</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-06 15:05:20" itemprop="dateModified" datetime="2019-06-06T15:05:20+08:00">2019-06-06</time>
+              </span>
+            
+          
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">本文字数：</span>
+              
+              <span>1.5k</span>
+            </span>
+          
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              
+              <span>3 分钟</span>
+            </span>
+          
+            <div class="post-description">本篇文章介绍了正则表达式的基本知识</div>
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="匹配单个字符"><a href="#匹配单个字符" class="headerlink" title="匹配单个字符"></a>匹配单个字符</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>纯文本</td>
+<td>w</td>
+</tr>
+<tr>
+<td>任意字符</td>
+<td>.</td>
+</tr>
+<tr>
+<td>特殊字符</td>
+<td>\\\\</td>
+</tr>
+<tr>
+<td>集合中的一个字符</td>
+<td>[abc] 、 [A-Za-z0-9]</td>
+</tr>
+<tr>
+<td>不包含 集合中 任意一个字符</td>
+<td><sup><a href="#fn_abc" id="reffn_abc">abc</a></sup></td>
+</tr>
+<tr>
+<td>空白符</td>
+<td>[\\b]、\f \\n \\r \\t \\r</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Python中，’.’ 不能匹配’\n’ 。加入re.S后可以</p>
+<p>集合中 也能放入\s \w这样的 单个元字符</p>
+<p>[s]常常放入一个元素 与 ? 等重复匹配结合，增强可读性</p>
+</blockquote>
+<h3 id="元字符"><a href="#元字符" class="headerlink" title="元字符"></a>元字符</h3><h4 id="空白字符类"><a href="#空白字符类" class="headerlink" title="空白字符类"></a>空白字符类</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backspace键，回退并删除</td>
+<td>[\b]</td>
+</tr>
+<tr>
+<td>换页符</td>
+<td>\f</td>
+</tr>
+<tr>
+<td>换行符</td>
+<td>\n</td>
+</tr>
+<tr>
+<td>回车符</td>
+<td>\r</td>
+</tr>
+<tr>
+<td>水平制表符</td>
+<td>\t</td>
+</tr>
+<tr>
+<td>垂直制表符</td>
+<td>\v</td>
+</tr>
+<tr>
+<td>任意一个空白字符</td>
+<td>\s</td>
+</tr>
+<tr>
+<td>任意一个非空白字符</td>
+<td>\S</td>
+</tr>
+<tr>
+<td>空格or水平制表符</td>
+<td>[:blank:]</td>
+</tr>
+<tr>
+<td>空白字符+空格</td>
+<td>[:space:]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>\r\n 匹配一个“回车+换行”组合，Windows的换行标识</p>
+<p>\n Linux</p>
+</blockquote>
+<h4 id="数字、字母类"><a href="#数字、字母类" class="headerlink" title="数字、字母类"></a>数字、字母类</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>任意一个数字字符[0-9]</td>
+<td>\d</td>
+</tr>
+<tr>
+<td>任意一个非数字字符</td>
+<td>\D</td>
+</tr>
+<tr>
+<td>任意一个字母数字或下划线</td>
+<td>\w</td>
+</tr>
+<tr>
+<td>上一行取反</td>
+<td>\W</td>
+</tr>
+<tr>
+<td>匹配十六进制</td>
+<td>\x前缀</td>
+</tr>
+<tr>
+<td>任何十六进制[a-fA-F0-9]</td>
+<td>[:xdigit:]</td>
+</tr>
+<tr>
+<td>匹配八进制</td>
+<td>\0前缀</td>
+</tr>
+<tr>
+<td>字母或数字</td>
+<td>[:alnum:]</td>
+</tr>
+<tr>
+<td>字母</td>
+<td>[:alpha:]</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>[:digit:]</td>
+</tr>
+<tr>
+<td>小写字母</td>
+<td>[:lower:]</td>
+</tr>
+<tr>
+<td>大写字母</td>
+<td>[:upper:]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>含义</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ASCII 控制字符</td>
+<td>[:cntrl:]</td>
+</tr>
+<tr>
+<td>可打印字符</td>
+<td>[:print:]</td>
+</tr>
+<tr>
+<td>可打印字符（空格除外）</td>
+<td>[:graph:]</td>
+</tr>
+<tr>
+<td>[:alnum:] 和 [:cntrl:] 之外的字符</td>
+<td>[:punct:]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="重复匹配问题"><a href="#重复匹配问题" class="headerlink" title="重复匹配问题"></a>重复匹配问题</h2><h3 id="基本用法-1"><a href="#基本用法-1" class="headerlink" title="基本用法"></a>基本用法</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>重复次数</th>
+<th>写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>≥ 1 (贪婪)</td>
+<td>+</td>
+</tr>
+<tr>
+<td>≥ 1 (懒惰)</td>
+<td>+?</td>
+</tr>
+<tr>
+<td>≥ 0 (贪婪)</td>
+<td>*</td>
+</tr>
+<tr>
+<td>≥ 0 (懒惰)</td>
+<td>*?</td>
+</tr>
+<tr>
+<td>0 或 1</td>
+<td>?</td>
+</tr>
+<tr>
+<td>n</td>
+<td>{n}</td>
+</tr>
+<tr>
+<td>m ≤ 次数 ≤ n</td>
+<td>{m,n}</td>
+</tr>
+<tr>
+<td>≥ n (贪婪)</td>
+<td>{n,}</td>
+</tr>
+<tr>
+<td>≥ n (懒惰)</td>
+<td>{n,}?</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="作用范围"><a href="#作用范围" class="headerlink" title="作用范围"></a>作用范围</h3><ul>
+<li>紧挨着它的前一个 字符 / 元字符 / 子表达式</li>
+</ul>
+<h3 id="贪婪问题"><a href="#贪婪问题" class="headerlink" title="贪婪问题"></a>贪婪问题</h3><h4 id="匹配行为"><a href="#匹配行为" class="headerlink" title="匹配行为"></a>匹配行为</h4><ul>
+<li>贪婪匹配：尽可能地从一段文本的开头一直匹配到这段文本的末尾</li>
+<li>懒惰匹配：从这段文本的开头匹配到碰到第一个匹配时为止</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">B</span>&gt;</span>AK<span class="tag">&lt;/<span class="name">B</span>&gt;</span> and <span class="tag">&lt;<span class="name">B</span>&gt;</span>HI<span class="tag">&lt;/<span class="name">B</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;[Bb]&gt;.*?&lt;/B&gt;</span><br><span class="line"><span class="comment"># 会匹配两个B标签</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;[Bb]&gt;.*&lt;/B&gt;</span><br><span class="line"><span class="comment"># 所有内容都匹配到</span></span><br></pre></td></tr></table></figure>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li>需要防止过度匹配的场合下，请使用“懒惰型”</li>
+<li>区分 重复匹配是针对单个字符或一个字符集合，并不是 匹配的结果是否重复</li>
+</ul>
+<h2 id="位置匹配"><a href="#位置匹配" class="headerlink" title="位置匹配"></a>位置匹配</h2><h3 id="单词边界-b"><a href="#单词边界-b" class="headerlink" title="单词边界\b"></a>单词边界\b</h3><ul>
+<li>\b 匹配一个单词的开始或结尾</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">\bcat\b  <span class="comment"># 匹配完整单词</span></span><br><span class="line">\bcat <span class="comment"># 匹配以cat开头的单词</span></span><br><span class="line">cat\b <span class="comment"># 匹配以cat结尾的单词</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串边界"><a href="#字符串边界" class="headerlink" title="字符串边界^$"></a>字符串边界^$</h3><p>^  匹配一个字符串的开头位置</p>
+<p>$  匹配一个字符串的结束位置（换行结束位置）</p>
+<blockquote>
+<p>分行匹配模式(?m)</p>
+<p>把行分隔符 当做 一个字符串的 分隔符 对待</p>
+</blockquote>
+<h2 id="子表达式（分组）"><a href="#子表达式（分组）" class="headerlink" title="子表达式（分组）"></a>子表达式（分组）</h2><h3 id="简单应用"><a href="#简单应用" class="headerlink" title="简单应用"></a>简单应用</h3><p>更大的表达式的一部分，当做一个 独立元素 来使用，需要用(和) 括起来；</p>
+<p>可以用于整体 重复匹配问题</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;nbsp;)&#123;<span class="number">2</span>,&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以划分作用范围</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">19</span>|<span class="number">20</span>\d&#123;<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">19</span>|<span class="number">20</span>)\d&#123;<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>每个子表达式 都 加上 括号 会对匹配速度造成一定影响</p>
+<p>?: 非捕获组</p>
+</blockquote>
+<h3 id="不同表达式之间的连接方式"><a href="#不同表达式之间的连接方式" class="headerlink" title="不同表达式之间的连接方式"></a>不同表达式之间的连接方式</h3><ul>
+<li><p>对表达式的理解：</p>
+<ul>
+<li>单个元素，单个元字符为 独立的组成部分</li>
+<li>通过()可以组合成一个整体</li>
+<li>“整体”基础上，加上重复匹配等修饰，构成表达式</li>
+</ul>
+</li>
+<li><p>连接方式</p>
+<ul>
+<li>不加任何修饰</li>
+<li>或运算符 | ，两个表达式之间 2选1</li>
+</ul>
+</li>
+</ul>
+<h3 id="子表达式的嵌套"><a href="#子表达式的嵌套" class="headerlink" title="子表达式的嵌套"></a>子表达式的嵌套</h3><p>上述讨论的表达式可以继续 利用 或运算符，重复匹配等结合，形成新的表达式，进而形成一层层的嵌套。</p>
+<p>理论上没有限制，但应该遵循适可而止的原则</p>
+<h2 id="全局性的设置"><a href="#全局性的设置" class="headerlink" title="全局性的设置"></a>全局性的设置</h2><h3 id="匹配结果的问题g"><a href="#匹配结果的问题g" class="headerlink" title="匹配结果的问题g"></a>匹配结果的问题g</h3><ul>
+<li>大部分 默认 返回第1个匹配结果</li>
+<li>可以把 所有的匹配结果 全部找出来，返回一个数组或者 其他的专用格式</li>
+</ul>
+<h3 id="大小写问题"><a href="#大小写问题" class="headerlink" title="大小写问题"></a>大小写问题</h3><p>JavaScript可以用 i 标志 强制执行一次 不区分字母大小写的搜索</p>
+<h3 id="分行匹配模式"><a href="#分行匹配模式" class="headerlink" title="分行匹配模式"></a>分行匹配模式</h3><p>(?m)必须出现在整个模式的最前面</p>
+<blockquote>
+<p>多数正则表达式 不支持</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+      
+        <div id="reward-container">
+  <div></div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/wechatpay.png" alt="xiaohuihui 微信支付">
+        <p>微信支付</p>
+      </div>
+        
+      
+      <div style="display: inline-block">
+        <img src="/images/alipay.png" alt="xiaohuihui 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+      
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>xiaohuihui</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://xiaohuihui1024.github.io/2019/05/17/02-正则表达式/" title="正则表达式">https://xiaohuihui1024.github.io/2019/05/17/02-正则表达式/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</span> 许可协议。转载请注明出处！</li>
+</ul>
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/05/09/Python学习笔记3-补充/" rel="next" title="Python学习笔记3-补充">
+                  <i class="fa fa-chevron-left"></i> Python学习笔记3-补充
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/06/12/MongoDB学习笔记/" rel="prev" title="MongoDB学习笔记">
+                  MongoDB学习笔记 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#匹配单个字符"><span class="nav-number">1.1.</span> <span class="nav-text">匹配单个字符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法"><span class="nav-number">1.1.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元字符"><span class="nav-number">1.1.2.</span> <span class="nav-text">元字符</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#空白字符类"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">空白字符类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字、字母类"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">数字、字母类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">其他</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重复匹配问题"><span class="nav-number">1.2.</span> <span class="nav-text">重复匹配问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本用法-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用范围"><span class="nav-number">1.2.2.</span> <span class="nav-text">作用范围</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#贪婪问题"><span class="nav-number">1.2.3.</span> <span class="nav-text">贪婪问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#匹配行为"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">匹配行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意事项"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">注意事项</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位置匹配"><span class="nav-number">1.3.</span> <span class="nav-text">位置匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单词边界-b"><span class="nav-number">1.3.1.</span> <span class="nav-text">单词边界\b</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串边界"><span class="nav-number">1.3.2.</span> <span class="nav-text">字符串边界^$</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子表达式（分组）"><span class="nav-number">1.4.</span> <span class="nav-text">子表达式（分组）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单应用"><span class="nav-number">1.4.1.</span> <span class="nav-text">简单应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同表达式之间的连接方式"><span class="nav-number">1.4.2.</span> <span class="nav-text">不同表达式之间的连接方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子表达式的嵌套"><span class="nav-number">1.4.3.</span> <span class="nav-text">子表达式的嵌套</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局性的设置"><span class="nav-number">1.5.</span> <span class="nav-text">全局性的设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#匹配结果的问题g"><span class="nav-number">1.5.1.</span> <span class="nav-text">匹配结果的问题g</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大小写问题"><span class="nav-number">1.5.2.</span> <span class="nav-text">大小写问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分行匹配模式"><span class="nav-number">1.5.3.</span> <span class="nav-text">分行匹配模式</span></a></li></ol></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image"
+      src="/images/avatar.jpg"
+      alt="xiaohuihui">
+  <p class="site-author-name" itemprop="name">xiaohuihui</p>
+  <div class="site-description" itemprop="description">记录学习历程，分享技术心得。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+</div>
+  <div class="feed-link motion-element">
+    <a href="/rss.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL3hpYW9odWlodWkxMDI0" title="GitHub &rarr; https://github.com/xiaohuihui1024"><i class="fa fa-fw fa-github"></i>GitHub</span>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <span class="exturl" data-url="bWFpbHRvOnpoYW5neXVodWljaG5AMTYzLmNvbQ==" title="E-Mail &rarr; mailto:zhangyuhuichn@163.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</span>
+      </span>
+    
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    
+  
+    <span class="exturl cc-opacity" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC8="><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title">
+      <i class="fa fa-fw fa-link"></i>
+      常用链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly9nb29nbGUuY29tLw==" title="https://google.com/">Google</span>
+        </li>
+      
+        <li class="links-of-blogroll-item">
+          <span class="exturl" data-url="aHR0cHM6Ly93d3cuYmFpZHUuY29tLw==" title="https://www.baidu.com/">Baidu</span>
+        </li>
+      
+    </ul>
+  </div>
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xiaohuihui</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">103k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">3:07</span>
+</div>
+  <div class="powered-by">由 <span class="exturl theme-link" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> 强力驱动 v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <span class="exturl theme-link" data-url="aHR0cHM6Ly90aGVtZS1uZXh0Lm9yZw==">NexT.Gemini</span> v7.4.0</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+  
+    <span class="post-meta-divider">|</span>
+  
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/pisces.js?v=7.4.0"></script>
+
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
